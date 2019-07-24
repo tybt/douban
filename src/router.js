@@ -1,4 +1,4 @@
-
+import global from './common/global'
 import React from 'react';
 import { createStackNavigator, createAppContainer,createBottomTabNavigator } from 'react-navigation';
 import login from './pages/login/login'
@@ -7,13 +7,15 @@ import main from './pages/main/mian'
 import group from './pages/group/group'
 import market from './pages/market/market'
 import mine from './pages/mine/mine'
-import './common/global'
+
+
+
 const TabNavigator = createBottomTabNavigator(
   {
     mian: {
       screen: main,
       navigationOptions: ({ navigation }) => ({
-        title:"首页"
+        title:"首页",
       }),
     },
     collections: {

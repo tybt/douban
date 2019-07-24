@@ -1,8 +1,8 @@
 import {Platform,StyleSheet} from 'react-native';
 var Dimensions = require('Dimensions');
-global.vw = Dimensions.get('window').width;
+global.vw = Dimensions.get('window').width/750;
 global.vh=Dimensions.get('window').height;
-
+global.platfrom=Platform //全局定义平台
 
 global.ajaxPost=(url,data,success)=>{
     let tempData=''
@@ -101,7 +101,11 @@ global.ajaxPostImg=(url,data,success)=>{
     });
 }
 
-
+global.body={
+    paddingTop:platfrom.os=="ios"?0:30,
+    flex:1,
+    position:'relative'
+}
 //global.host='http://172.20.10.5:8080'//手机主机地址
 //global.host='http://192.168.0.107:8080'//宿舍无线主机地址
  global.host='http://10.8.30.66:8080'//图书馆wifi地址
@@ -134,7 +138,7 @@ global.Url={
 }
 
 global.content={flex:1}
-global.platfrom=Platform //全局定义平台
+
 global.themeColor='#4fb0fd' //主题风格
 
 //定义普通的边框
