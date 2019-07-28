@@ -1,5 +1,9 @@
 import React from "react";
-import { StyleSheet, View, Text, SafeAreaView,StatusBar,TouchableWithoutFeedback,Image,TextInput } from "react-native";
+import { StyleSheet, View, Text, SafeAreaView,StatusBar,TouchableWithoutFeedback,Image,TextInput ,Modal} from "react-native";
+import { TabView, SceneMap,NavigationState,SceneRendererProps,TabBar } from 'react-native-tab-view';
+import tab_1 from './main_tab/main_tab_1'
+import tab_2 from './main_tab/main_tab_2'
+
 export default class login extends React.Component {
   static navigationOptions = {
     header: null
@@ -7,23 +11,51 @@ export default class login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      searchValue:'',
+      index: 0,
+      routes: [
+        { key: 'tab_1', title: '动态' },
+        { key: 'tab_2', title: '推荐' },
+      ],
     };
   }
   componentWillMount() {
 
   }
-  componentDidMount() {}
+  componentDidMount() {
+
+  }
   render() {
     return(
       <View style={body}>
         {this.top()}
-        <SafeAreaView>
-        {this.header()}
+        <SafeAreaView style={{flex:1}}>
+          {this.header()}
+          <TabView
+          navigationState={this.state}
+          renderScene={SceneMap({
+            tab_1: tab_1,
+            tab_2: tab_2,
+          })}
+          renderTabBar={this.renderTabBar}
+          style={styles.tab_brand}
+          onIndexChange={index => this.setState({ index })}
+          initialLayout={{ width: 250*vw }}
+        />
         </SafeAreaView>
       </View>    
     ) ;
   }
+  renderTabBar = props => 
+    <TabBar 
+      {...props} 
+      style={styles.tabbar}
+      scrollEnabled
+      indicatorStyle={styles.indicator}
+      style={styles.tabbar}
+      tabStyle={styles.tab}
+      labelStyle={styles.label}>
+    </TabBar>
   top() {
     return (
       <View style={styles.top}>
@@ -38,7 +70,11 @@ export default class login extends React.Component {
           <TouchableWithoutFeedback>
             <Image source={require('../../static/main/search.png')} style={styles.top_img}></Image>
           </TouchableWithoutFeedback>
-          <TextInput placeHolder="请输入搜索内容"></TextInput>
+          <TextInput 
+          style={styles.inputs}
+          placeholder="请输入搜索内容" 
+          onChangeText={(text)=>this.setState({searchValue:text}) }>
+          </TextInput>
           <TouchableWithoutFeedback>
             <Image source={require('../../static/main/scan.png')} style={styles.top_img}></Image>
           </TouchableWithoutFeedback>
@@ -46,8 +82,31 @@ export default class login extends React.Component {
       </View>
     )
   }
+ 
 }
 const styles = StyleSheet.create({
+  inputs:{
+    height:60*vw
+  },
+  tabbar: {
+    backgroundColor:'#67ba62',
+    borderColor:'#ffffff',
+  },
+  tab: {
+    width: 'auto',
+  },
+  indicator: {
+    height:5*vw,
+    backgroundColor: '#ffffff',
+  },
+  label: {
+    alignItems:'center',
+    fontSize:32*vw,
+    fontWeight:'bold',
+  },
+  scene: {
+    flex: 1,
+  },
   top: {
     flex:1,
     backgroundColor:'#67ba62',
@@ -59,7 +118,8 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor:'#67ba62',
     alignItems:'center',
-    justifyContent:'center'
+    height:170*vw,
+    width:750*vw
   },
   searchBox:{
     backgroundColor:'#ffffff',
@@ -67,10 +127,30 @@ const styles = StyleSheet.create({
     borderRadius:30*vw,
     width:700*vw,
     flexDirection:'row',
-    justifyContent:'space-between'
+    justifyContent:'flex-start',
+    alignItems:'center',
+    paddingLeft:20*vw,
+    paddingRight:20*vw
   },
   top_img:{
     height:35*vw,
     width:35*vw
+  },
+  header_tab:{
+    marginTop:20*vw,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    paddingLeft:230*vw,
+    paddingRight:230*vw,
+    paddingBottom:10*vw
+  },
+  tab_brand:{
+    marginTop:-100*vw,
+  },
+  tab_active:{
+    fontWeight:'bold',
+    borderBottomWidth:3,
+    borderColor:'#ffffff',
+
   }
 });
