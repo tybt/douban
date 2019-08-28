@@ -1,5 +1,10 @@
 import global from './common/global'
 import React from 'react';
+import {
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback
+} from "react-native";
 import { createStackNavigator, createAppContainer,createBottomTabNavigator } from 'react-navigation';
 import login from './pages/login/login'
 import collections from './pages/collections/collections'
@@ -7,7 +12,9 @@ import main from './pages/main/mian'
 import group from './pages/group/group'
 import market from './pages/market/market'
 import mine from './pages/mine/mine'
-
+import momentDetail from './pages/main/momentDetail'
+import writeMoment from './pages/main/writeMoment'
+import TabBar from './pages/main/tabBar'
 
 
 const TabNavigator = createBottomTabNavigator(
@@ -52,9 +59,29 @@ const AppStack = createStackNavigator({
       header:null
     }),
   },
-  login: login 
+  momentDetail:{
+    screen:momentDetail,
+    navigationOptions: ({ navigation }) => ({
+      header:null
+    }),
+  },
+  writeMoment :{
+    screen:writeMoment,
+    navigationOptions: ({ navigation }) => ({
+      header:null
+    }),
+  },
+  login:login
 });
 
+
+let styles=StyleSheet.create({
+  shareIcon:{
+    width:34*vw,
+    height:47*vw,
+    marginRight:30*vw
+  }
+})
 
 export default createAppContainer(AppStack);
 

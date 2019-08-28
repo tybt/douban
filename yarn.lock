@@ -5192,6 +5192,11 @@ react-native-gesture-handler@^1.3.0:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-image-picker@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-1.0.2.tgz#8b0ffe89d7dd97bef1f7e317f313f90549b126b3"
+  integrity sha512-+xwfqOQz5lU6mO6YUWdp7cb1a8V9hOqh4joI6YoRRyWp2stQ5P7m6x3f6w9j1r29f5mK67kqmM5gOfweTqzDaA==
+
 react-native-modal-translucent@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-native-modal-translucent/-/react-native-modal-translucent-3.0.1.tgz#29945ca76b25f13fcbacd77ce91364c1dda6252b"

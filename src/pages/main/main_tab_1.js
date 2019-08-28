@@ -5,66 +5,97 @@ import {
   ScrollView,
   Image,
   Text,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  AsyncStorage
 } from "react-native";
-import Share from "../../component/share";
+import Share from "../component/share";
 
-export default class example extends React.Component {
+export default class tab1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      share: 0
+      share: 0,
+      data: []
     };
+  }
+  componentDidMount() {
+    ajaxPost(Url.getmoment, {}, res => {
+      console.log(res, "res");
+      let tempData=[];
+      for(let item of res){
+        if(item.images){
+          item.images=item.images.split(",")        }
+        else{
+          item.images=[]
+        }
+        tempData.push(item)
+      }
+      console.log(tempData,'tempData')
+      this.setState({
+        data: tempData
+      });
+    });
   }
   render() {
     return (
-      <View>
-        <ScrollView style={{ paddingBottom: 80 }}>
+      <View style={{ flex: 1 }}>
+        <TouchableWithoutFeedback onPress={() => this.goWriteMoment()} style={{ zIndex: 9999 }}>
+          <Image style={styles.publishImg} source={require("../../static/main/publish.png")}></Image>
+        </TouchableWithoutFeedback>
+
+        {this.Detail()}
+
+        {this.state.share == 1 ? (
+          <Share
+            navigation={this.props.navigation}
+            getShare={() => this.getShares()}
+          />
+        ) :null}
+      </View>
+    );
+  }
+  Detail() {
+    return (
+      <ScrollView style={{ paddingBottom: 80 }}>
+        {this.state.data.map((elem, index) => {
           <View style={styles.m_brand}>
             <View style={styles.userInfo}>
               <Image
-                source={require("../../../static/timg.jpg")}
+                source={{uri:host+elem.userEntity.iconImage}}
                 style={styles.userImg}
               />
               <View style={styles.user_info_box}>
-                <Text style={styles.userName}>我是你爸爸</Text>
-                <Text style={styles.user_reply_time}>2019-15-12 12:50:20</Text>
+                <Text style={styles.userName}>{elem.userEntity.account}</Text>
+                <Text style={styles.user_reply_time}>{elem.creatTime}</Text>
               </View>
               <Image
                 style={styles.more}
-                source={require("../../../static/main/more.png")}
+                source={require("../../static/main/more.png")}
               />
             </View>
-            <Text style={styles.content}>这是动态的内容</Text>
+            <Text style={styles.content}>{elem.content}</Text>
             <View style={styles.contentImgBox}>
-              <Image
-                style={styles.contentImg}
-                source={require("../../../static/timg.jpg")}
-              />
-              <Image
-                style={styles.contentImg}
-                source={require("../../../static/timg.jpg")}
-              />
-              <Image
-                style={styles.contentImg}
-                source={require("../../../static/timg.jpg")}
-              />
+              {
+                elem.images.map((item,list)=>{
+                  return(<Image style={styles.contentImg} source={{uri:host+item}}/>)
+                })
+              }
             </View>
             <View style={styles.main_3}>
               <TouchableWithoutFeedback onPress={() => this.setFavour()}>
                 <View style={styles.main_3_brand}>
                   <Image
                     style={styles.tabIcon}
-                    source={require("../../../static/main/favor.png")}
+                    source={require("../../static/main/favor.png")}
                   />
                   <Text>122</Text>
                 </View>
               </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback>
+              <TouchableWithoutFeedback onPress={() => this.goMomentDetail()}>
                 <View style={styles.main_3_brand}>
                   <Image
                     style={styles.tabIcon}
-                    source={require("../../../static/main/comment.png")}
+                    source={require("../../static/main/write.png")}
                   />
                   <Text>122</Text>
                 </View>
@@ -73,37 +104,50 @@ export default class example extends React.Component {
                 <View style={styles.main_3_brand}>
                   <Image
                     style={styles.tabIcon}
-                    source={require("../../../static/main/transfrom.png")}
+                    source={require("../../static/main/transfrom.png")}
                   />
                   <Text>122</Text>
                 </View>
               </TouchableWithoutFeedback>
             </View>
             <View style={styles.brandBorder} />
-          </View>
-        </ScrollView>
-        {this.state.share == 1 ? (
-          <Share
-            navigation={this.props.navigation}
-            getShare={()=>this.getShares()}
-          />
-        ) : (
-          <View />
-        )}
-      </View>
+          </View>;
+        })}
+      </ScrollView>
     );
   }
-  setFavour() {
-    
-  }
+  setFavour() {}
   setShare() {
-    this.setState({share:1});
+    this.setState({ share: 1 });
   }
   getShares() {
-    this.setState({ share: 0});
+    this.setState({ share: 0 });
+  }
+  goMomentDetail() {
+    console.log(this.props, "this.props.navigation");
+    this.props.navigation.navigate("momentDetail");
+  }
+  async goWriteMoment() {
+    let token = await AsyncStorage.getItem("token");
+    console.log(token);
+    if (token && token != "") {
+      this.props.navigation.navigate("writeMoment");
+    } else {
+      this.props.navigation.navigate("login");
+    }
   }
 }
 const styles = StyleSheet.create({
+  publishImg: {
+    position: "absolute",
+    zIndex: 999,
+    width: 50 * vw,
+    height: 50 * vw,
+    backgroundColor: "rgba(0,0,0,0)",
+    right: 30 * vw,
+    bottom: 100 * vw
+  },
+
   main_3: {
     marginTop: 20 * vw,
     paddingLeft: 80 * vw,

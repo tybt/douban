@@ -1,10 +1,10 @@
-import {Platform,StyleSheet} from 'react-native';
+import {Platform,StyleSheet,AsyncStorage} from 'react-native';
 var Dimensions = require('Dimensions');
 global.vw = Dimensions.get('window').width/750;
 global.vh=Dimensions.get('window').height;
 global.platfrom=Platform //全局定义平台
 
-global.ajaxPost=(url,data,success)=>{
+global.ajaxPost=async (url,data,success)=>{
     let tempData=''
     for(i in data){
         tempData=tempData+i+'='+data[i]+'&'    
@@ -13,47 +13,20 @@ global.ajaxPost=(url,data,success)=>{
     fetch(url,{
         method: 'POST',
         headers: {
+            token:await AsyncStorage.getItem("token"),
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body:tempData//JSON.stringify(data),
     })
-    // .then(res => res.text())
-    // .then(text => console.log(text))
-    .then((response) => response.json())
-    .then((responseJson) =>success(responseJson))
+    .then((response) => {
+        return response.json();
+    }).then((responseJson) =>success(responseJson))
     .catch((error) => {
         console.error(error);
     });
 
 }
 
-//需要认证的接口
-global.ajaxPostAuth=(url,auth,data,success)=>{
-    let tempData=''
-    for(i in data){
-        tempData=tempData+i+'='+data[i]+'&'    
-    }
-    let authObject={
-        'Content-Type': 'application/x-www-form-urlencoded',
-    }
-    for(i in auth){
-        authObject[i]=auth[i]
-    }
-    console.log(tempData,'准备要上传的数据',url,'地址',authObject,'authObject')
-    fetch(url,{
-        method: 'POST',
-        headers: authObject,
-        body:tempData//JSON.stringify(data),
-    })
-    // .then(res => res.text())
-    // .then(text => console.log(text))
-    .then((response) => response.json())
-    .then((responseJson) =>success(responseJson))
-    .catch((error) => {
-        console.error(error);
-    });
-
-}
 
 //测试后台的数据有无异常
 global.ajaxPosts=(url,data,success)=>{
@@ -78,7 +51,7 @@ global.ajaxPosts=(url,data,success)=>{
 }
 
 
-global.ajaxPostImg=(url,data,success)=>{
+global.ajaxPostImg=async (url,data,success)=>{
     let formdata=new FormData();
     for(let i=0;i<data.length;i++){
         let file = {uri: data[i], type: 'application/octet-stream', name: 'image.jpg'};
@@ -88,6 +61,7 @@ global.ajaxPostImg=(url,data,success)=>{
     fetch(url,{
         method: 'POST',
         headers: {
+            token:await AsyncStorage.getItem("token"),
             'Content-Type': 'multipart/form-data',
         },
         body: formdata,
@@ -106,35 +80,36 @@ global.body={
     flex:1,
     position:'relative'
 }
-//global.host='http://172.20.10.5:8080'//手机主机地址
+global.paddingBody={
+    paddingTop:platfrom.os=="ios"?0:30,
+    paddingLeft:30*vw,
+    paddingRight:30*vw,
+    flex:1,
+    position:'relative'
+}
+global.host='http://172.20.10.2:8080'//手机主机地址
 //global.host='http://192.168.0.107:8080'//宿舍无线主机地址
- global.host='http://10.8.30.66:8080'//图书馆wifi地址
+//global.host='http://10.8.31.115:8080'//图书馆wifi地址
 //global.host='http://192.168.8.158:8080'//家里地址
 
 global.chatHost='http://10.8.30.129:3000'//IM地址
 global.liveChatHost='wss://10.8.30.129:3000/websocket'
 global.Url={
-    writeMoment:host+'/writeMoment/words',//发表状态
-    uploadImg:host+'/uploader/imgs',//上传图片
+    
     getmoment:host+'/writeMoment/getmoment',//获取动态
     changeImg:host+'/user/changeImg',//修改用户头像
     getReply:host+'/writeMoment/getReply',//获取时刻的评论
     setFavor:host+'/writeMoment/setFavor',//点赞
     deleteFavor:host+'/writeMoment/deleteFavor',//取消赞
     writeReply:host+'/writeMoment/writeReply',//写回复
-    register:host+'/user/addAcount',//注册
-    loginWithAccount:host+'/user/login',//登录
 
-    //聊天版块rocketChat
-    postMessage:chatHost+'/api/v1/chat.sendMessage',//发送消息
-    getMessage:chatHost+'/api/v1/chat.getMessage',//获取消息
-    chatLogin:chatHost+'/api/v1/login',//聊天登录
-    chatRegister:chatHost+'/api/v1/users.register',//聊天注册
-    chatChannelsCreate:chatHost+'/api/v1/channels.create',//创建一个聊天室
-
-    //融云chat
-    ry_getToken:'http://api-cn.ronghub.com/user/getToken.json',
-
+   //新接口
+   
+    getmoment:host+'/public/getMoment',//获取动态
+    register:host+'/register',//注册
+    loginWithAccount:host+'/login',//登录
+    writeMoment:host+'/private/writeMoment',//发表状态
+    uploadImg:host+'/private/postImg',//上传图片
 }
 
 global.content={flex:1}

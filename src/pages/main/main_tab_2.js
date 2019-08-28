@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet,View } from 'react-native';
        
 
-export default class example extends React.Component{
+export default class tab2 extends React.Component{
    constructor(props) {
        super(props);
        this.state = {

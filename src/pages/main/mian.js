@@ -1,8 +1,8 @@
 import React from "react";
-import { StyleSheet, View, Text, SafeAreaView,StatusBar,TouchableWithoutFeedback,Image,TextInput ,Modal} from "react-native";
+import { StyleSheet, View, Text, SafeAreaView,StatusBar,TouchableWithoutFeedback,Image,TextInput } from "react-native";
 import { TabView, SceneMap,NavigationState,SceneRendererProps,TabBar } from 'react-native-tab-view';
-import tab_1 from './main_tab/main_tab_1'
-import tab_2 from './main_tab/main_tab_2'
+import Tab_1 from './main_tab_1'
+import Tab_2 from './main_tab_2'
 
 export default class login extends React.Component {
   static navigationOptions = {
@@ -17,13 +17,19 @@ export default class login extends React.Component {
         { key: 'tab_1', title: '动态' },
         { key: 'tab_2', title: '推荐' },
       ],
+      barColor:'light-content'
     };
   }
   componentWillMount() {
 
   }
   componentDidMount() {
-
+    console.log('haha')
+    this.setState({barColor:'dark-content'});
+  }
+  componentWillUnmount(){
+    
+    console.log('hah')
   }
   render() {
     return(
@@ -33,15 +39,20 @@ export default class login extends React.Component {
           {this.header()}
           <TabView
           navigationState={this.state}
-          renderScene={SceneMap({
-            tab_1: tab_1,
-            tab_2: tab_2,
-          })}
+          renderScene = {({ route, jumpTo }) => {
+            switch (route.key) {
+              case 'tab_1':
+                return <Tab_1 navigation={this.props.navigation}></Tab_1>;
+              case 'tab_2':
+                return <Tab_2 navigation={this.props.navigation}></Tab_2>;
+            }
+          }}
           renderTabBar={this.renderTabBar}
           style={styles.tab_brand}
           onIndexChange={index => this.setState({ index })}
           initialLayout={{ width: 250*vw }}
         />
+
         </SafeAreaView>
       </View>    
     ) ;
@@ -59,7 +70,7 @@ export default class login extends React.Component {
   top() {
     return (
       <View style={styles.top}>
-        <StatusBar translucent={true} backgroundColor={"transparent"}></StatusBar>
+        <StatusBar translucent={true} backgroundColor={"transparent"} barStyle={this.state.barColor}></StatusBar>
       </View>
     );
   }
@@ -86,7 +97,11 @@ export default class login extends React.Component {
 }
 const styles = StyleSheet.create({
   inputs:{
-    height:60*vw
+    marginLeft:5*vw,
+    paddingTop:0,
+    paddingBottom:0,
+    height:60*vw,
+    width:560*vw
   },
   tabbar: {
     backgroundColor:'#67ba62',
@@ -133,6 +148,7 @@ const styles = StyleSheet.create({
     paddingRight:20*vw
   },
   top_img:{
+    marginLeft:5*vw,
     height:35*vw,
     width:35*vw
   },
