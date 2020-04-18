@@ -1,0 +1,15 @@
+node 大于12.0
+npm install --save react-navigation
+npm install --save redux
+npm install  redux-saga --save
+npm install react-redux --save
+npm install redux-logger --save
+npm install react-native-tab-view --save
+npm install react-native-image-picker --save
+npm install react-native-video --save
+npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+npm install react-native-wechat --save
+npm install axios --save
+npm install react-navigation-tabs --save
+
+npm install react-navigation-stack --save
