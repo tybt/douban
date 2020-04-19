@@ -17,7 +17,7 @@ import Search from './pages/main/search';
 import DoubanRank from './containers/CollectionsContainer'
 import ClassifyFindMovies from './pages/collections/classifyFindMovies'
 import FindMovies from './pages/collections/findMovies'
-import movieIndex from './containers/MovieIndex'
+import movieIndex from './pages/movie/movieIndex'
 import MovieVideo from './pages/movie/movieVideo'
 
 

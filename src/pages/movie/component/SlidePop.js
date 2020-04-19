@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet,PanResponder,Animated, View,Text, ScrollView} from "react-native";
-import { Header } from "react-navigation";
+import { Header } from "react-navigation-stack";
 import Switch from "./Switch";
 export default class Slide extends React.Component {
   constructor(props) {

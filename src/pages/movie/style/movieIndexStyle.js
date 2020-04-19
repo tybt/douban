@@ -2,6 +2,44 @@ import { StyleSheet } from 'react-native';
 
 
 const styles = StyleSheet.create( {
+  userImg:{
+    width:56*vw,
+    height:56*vw,
+    borderRadius:28*vw,
+  },
+  forward:{
+    height:25*vw,
+    width:20*vw,
+    marginLeft:10*vw
+  },
+  commentBox:{
+    width:640*vw,
+
+  },
+  main_06:{
+    backgroundColor:'#3d1f17',
+    borderRadius:10*vw,
+    padding:20*vw,
+  },
+  scorllViews:{
+    paddingBottom:30*vw
+  },
+  videoStartWitle:{
+    height:56*vw,
+    width:56*vw,
+  },
+  videoImg:{
+    height:'100%',
+    width:'100%',
+    position:'absolute'
+  },
+  videoBrand:{
+    width:432*vw,
+    height:286*vw,
+    borderRadius:10*vw,
+    marginRight:20*vw,
+    overflow:'hidden'
+  },
   main_04:{
     marginTop:40*vw
   },
@@ -120,7 +158,7 @@ const styles = StyleSheet.create( {
   },
   body:{
     backgroundColor:'#9e9d98',
-    flex:1
+    flex:1,
   },
   movieImg:{
     width:180*vw,
