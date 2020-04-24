@@ -7,9 +7,10 @@ import * as movieIndexAction from '../../actions/movieIndexActions';
 
 import styles from './style/movieIndexStyle'
 import StatusBar from './component/StatusBar'
-import Slide from './component/SlidePop'
 import { Header } from 'react-navigation-stack';
 import Stars from './component/star'
+import PickerStars from './component/pickerStars'
+import RankStars from './component/rankStars'
 class MovieIndex extends React.Component {
 
   constructor(props) {
@@ -20,7 +21,6 @@ class MovieIndex extends React.Component {
     this.props.movieIndexActions.requestMovieDetail(this.props.navigation.state.params.id)
   }
   render() {
-    console.log(this.props, 'this.props')
     const { movieDetail } = this.props.movieIndexReducer
     return (
       <SafeAreaView style={styles.body} >
@@ -64,55 +64,28 @@ class MovieIndex extends React.Component {
                 <View style={styles.countBox}>
                   <View style={styles.countBrand}>
                     <Text style={styles.countText}>{movieDetail.rating.average}</Text>
-                    <View style={styles.starRow}>
-                      <Image style={styles.contImg} source={require('../../static/component/star1.png')}></Image>
-                      <Image style={styles.contImg} source={require('../../static/component/star1.png')}></Image>
-                      <Image style={styles.contImg} source={require('../../static/component/star1.png')}></Image>
-                      <Image style={styles.contImg} source={require('../../static/component/star1.png')}></Image>
-                      <Image style={styles.contImg} source={require('../../static/component/star1.png')}></Image>
-                    </View>
+                    <RankStars num={movieDetail.rating.average}></RankStars>
                   </View>
                   <View style={styles.starBox}>
                     <View style={styles.starList}>
-                      <View style={styles.listCountImgBox}>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                      </View>
+                      <PickerStars num={5}></PickerStars>
                       <StatusBar num={{ value: movieDetail.rating.details[5], total: movieDetail.ratings_count }}></StatusBar>
                     </View>
 
                     <View style={styles.starList}>
-                      <View style={styles.listCountImgBox}>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-
-                      </View>
+                      <PickerStars num={4}></PickerStars>                      
                       <StatusBar num={{ value: movieDetail.rating.details[4], total: movieDetail.ratings_count }}></StatusBar>
                     </View>
                     <View style={styles.starList}>
-                      <View style={styles.listCountImgBox}>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                      </View>
+                      <PickerStars num={3}></PickerStars>                      
                       <StatusBar num={{ value: movieDetail.rating.details[3], total: movieDetail.ratings_count }}></StatusBar>
                     </View>
                     <View style={styles.starList}>
-                      <View style={styles.listCountImgBox}>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                      </View>
+                      <PickerStars num={2}></PickerStars>                      
                       <StatusBar num={{ value: movieDetail.rating.details[2], total: movieDetail.ratings_count }}></StatusBar>
                     </View>
                     <View style={styles.starList}>
-                      <View style={styles.listCountImgBox}>
-                        <Image style={styles.contImg} source={require('../../static/component/star2.png')}></Image>
-                      </View>
+                      <PickerStars num={1}></PickerStars>                      
                       <StatusBar num={{ value: movieDetail.rating.details[1], total: movieDetail.ratings_count }}></StatusBar>
                     </View>
                   </View>
@@ -122,7 +95,7 @@ class MovieIndex extends React.Component {
                 <ScrollView
                   horizontal
                   showsHorizontalScrollIndicator={false}
-                  style={styles.csrollBox}>
+                  style={[styles.csrollBox, commonBody690]}>
                   {
                     movieDetail.tags.map((elem, index) => {
                       return (
@@ -159,11 +132,11 @@ class MovieIndex extends React.Component {
               </View>
               <View style={[styles.main_05, commonBody]}>
                 <Text style={[fontw32, colorfff]}>预告片/剧照</Text>
-                <ScrollView horizontal  style={[flexRow]}>
+                <ScrollView horizontal style={[flexRow]}>
                   {
                     movieDetail.trailers.map(videoElem => {
                       return (
-                        <View style={[styles.videoBrand,flexAlignCenter,m_t20]}>
+                        <View style={[styles.videoBrand, flexAlignCenter, m_t20]}>
                           <Image style={styles.videoImg} source={{ uri: videoElem.small }}></Image>
                           <Image style={styles.videoStartWitle} source={require('../../static/component/videoStartWitle.png')}></Image>
                         </View>
@@ -175,29 +148,68 @@ class MovieIndex extends React.Component {
                 </ScrollView>
 
               </View>
-              <View style={[styles.main_06,flexAlignCenter,commonBody690,m_t30]}>
+              <View style={[styles.main_06, flexAlignCenter, commonBody690, m_t30]}>
                 <View style={styles.commentBox}>
                   <View style={[flexAlignBetween]}>
-                    <Text style={[fontw32,colorfff]}>
+                    <Text style={[fontw32, colorfff]}>
                       短评
                     </Text>
                     <View style={[flexAlign]}>
                       <Text style={[colorfff]}>
-                        全部短评{'123456'}
+                        全部短评{movieDetail.reviews_count}
                       </Text>
                       <Image style={styles.forward} source={require('../../static/component/forward_white.png')}></Image>
                     </View>
                   </View>
-                  <View style={styles.commentBrand}>
-                    <View style={[flexAlignBetween]}>
-                      <Image style={styles.userImg} source={require('../../static/timg.jpg')}></Image>
-                      <View >
-                        <Text style={[fontw28]}>橘猫爱吃鱼</Text>
-                        <Stars num={3}></Stars>
-                      </View>
+                  {
+                    movieDetail.popular_comments.map(elem => {
+                      return (
+                        <View style={[styles.commentBrand, m_t30]}>
+                          <View style={[flexAlignBetween]}>
+                            <Image style={styles.userImg} source={{ uri: elem.author.avatar }}></Image>
+                            <View style={styles.userBox}>
+                              <Text style={[fontw24, m_b10, colorfff, opacity5,]}>
+                                {elem.author.name}
+                              </Text>
+                              <Stars num={elem.rating.value}></Stars>
+                            </View>
+                            <Image style={styles.more} source={require('../../static/main/more.png')}></Image>
+                          </View>
+                          <Text style={[m_t10, colorfff, opacity5]}>
+                            {elem.content}
+                          </Text>
+                          <View style={[flexAlign]}>
+                            <Image style={[styles.favor, opacity5]} source={require('../../static/component/favor.png')}></Image>
+                            <Text style={[colorfff, opacity5, m_l10]}>
+                              {elem.useful_count}
+                            </Text>
+                          </View>
+                        </View>
+                      )
+                    })
+                  }
+
+                </View>
+              </View>
+              <View style={[styles.main_07, m_t30, commonBody]}>
+                <View style={[flexAlignBetween]}>
+                  <Text style={[fontw32, colorfff]}>获奖记录</Text>
+                  <View style={[flexAlign]}>
+                    <Text style={[colorfff]}>查看更多</Text>
+                    <Image style={styles.forward_white} source={require('../../static/component/forward_white.png')}></Image>
+                  </View>
+                </View>
+                <View style={styles.box}>
+                  <View style={[flexAlign]}>
+                    <Image style={[styles.wardImg]} source={require('../../static/timg.jpg')}></Image>
+                    <View>
+                      <Text style={[colorfff, fontw32]}>奥斯卡金像奖</Text>
+                      <Text style={[colorfff]}>最佳影片</Text>
                     </View>
                   </View>
                 </View>
+
+
               </View>
             </ScrollView>
           )

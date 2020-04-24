@@ -3,7 +3,7 @@
 const host='https://douban.uieee.com'
 const baesHost='http://172.20.10.3:8000'
 
-
+const apikey='0b2bdeda43b5688921839c8ecb20399b'
 export default {
   
   chartsList:`GET /api/charts`,

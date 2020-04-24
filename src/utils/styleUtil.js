@@ -145,6 +145,10 @@ global.fontw28 = {
   fontSize:28*vw,
   fontWeight:'bold'
 };
+global.fontw24 = {
+  fontSize:24*vw,
+  fontWeight:'bold'
+};
 global.font32 = {
   fontSize:32*vw,
 };
@@ -172,4 +176,9 @@ global.color666 = {
 global.color888 = {
   color:'#888'
 };
+global.opacity5 = {
+  opacity:0.5
+};
+
+
 

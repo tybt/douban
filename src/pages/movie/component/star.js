@@ -54,8 +54,8 @@ export default function (props) {
 
 const styles = StyleSheet.create({
   star1: {
-    width: 18 * vw,
-    height: 18 * vw,
-    marginRight: 10 * vw
+    width: 25 * vw,
+    height: 25 * vw,
+    marginRight: 5 * vw
   }
 })

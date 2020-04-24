@@ -2,6 +2,27 @@ import { StyleSheet } from 'react-native';
 
 
 const styles = StyleSheet.create( {
+  favor:{
+    width:30*vw,
+    height:30*vw
+  },
+  wardImg:{
+    width:90*vw,
+    height:90*vw,
+    borderRadius:10*vw,
+    marginRight:28*vw,
+  },
+  forward_white:{
+    width:13*vw,
+    height:30*vw
+  },
+  more:{
+    width:30*vw,
+    height:10*vw
+  },
+  userBox:{
+    width:535*vw
+  },
   userImg:{
     width:56*vw,
     height:56*vw,
@@ -211,19 +232,11 @@ const styles = StyleSheet.create( {
   countBox:{
     flexDirection:'row',
   },
-  starRow:{
-    flexDirection:'row',
-    marginTop:10*vw
-  },
   countText:{
     fontSize:36*vw,
     color:'#FFFFFF',
     fontWeight:'bold',
     textAlign:'center'
-  },
-  contImg:{
-    width:25*vw,
-    height:25*vw
   },
   countBrand:{
     width:110*vw,
@@ -235,6 +248,11 @@ const styles = StyleSheet.create( {
     width:80*vw,
     flexDirection:'row-reverse'
   },
+  contImg:{
+    width:25*vw,
+    height:25*vw
+  },
+
   starList:{
     flexDirection:'row',
     alignItems:'center'
