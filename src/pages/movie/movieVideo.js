@@ -14,7 +14,9 @@ export default class MovieVideo extends React.Component{
     };
   }
   render(){
-    
+    console.log(this.props,'props');
+
+    const videoData=this.props.navigation.state.params
     return(
       <SafeAreaView style={[styles.body]}>
         <View style={[styles.videoBox,{ width: this.state.videoWidth, backgroundColor:'#000000' }]}> 
@@ -22,7 +24,7 @@ export default class MovieVideo extends React.Component{
           ref={(ref) => this.videoPlayer = ref}
           muted={this.state.muted} //是否静音
           //paused //是否暂停
-          poster={'http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1208/15/c0/12924355_1344999165557.jpg'}//加载时候的图片
+          poster={videoData.medium}//加载时候的图片
           //hideShutterView
           fullscreen={true} 
           fullscreenOrientation={"portrait"}
@@ -33,7 +35,7 @@ export default class MovieVideo extends React.Component{
           //rate
           //source={require('../../static/video_1.mp4')}
           resizeMode="cover"
-          source={{uri: 'https://www.bilibili.com/bangumi/play/ss28274?bsource=douban' }}
+          source={{uri: videoData.resource_url}}
           style={styles.backgroundVideo} 
           ignoreSilentSwitch={'ignore'}
           progressUpdateInterval={250.0}
@@ -55,7 +57,7 @@ export default class MovieVideo extends React.Component{
           </View>
           
         </View>
-        <View style={styles.main_02}>
+        {/* <View style={styles.main_02}>
           <Image style={styles.userImg} source={require('../../static/timg.jpg')}></Image>
           <View style={styles.userBox}>
             <Text style={styles.userName}>大葱看电影</Text>
@@ -65,7 +67,7 @@ export default class MovieVideo extends React.Component{
         </View>
         <View style={styles.main_03}>
           <Text style={styles.comment}>《一出好戏真的是绝了》</Text>
-        </View>
+        </View> */}
 
       </SafeAreaView>
 

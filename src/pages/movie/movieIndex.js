@@ -136,10 +136,10 @@ class MovieIndex extends React.Component {
                   {
                     movieDetail.trailers.map(videoElem => {
                       return (
-                        <View style={[styles.videoBrand, flexAlignCenter, m_t20]}>
+                        <TouchableOpacity onPress={()=>this.goVideoDetail(videoElem)} style={[styles.videoBrand, flexAlignCenter, m_t20]}>
                           <Image style={styles.videoImg} source={{ uri: videoElem.small }}></Image>
                           <Image style={styles.videoStartWitle} source={require('../../static/component/videoStartWitle.png')}></Image>
-                        </View>
+                        </TouchableOpacity>
 
                       )
                     })
@@ -219,6 +219,10 @@ class MovieIndex extends React.Component {
       </SafeAreaView>
 
     )
+  }
+  goVideoDetail(item){
+    console.log(item,'item');
+    this.props.navigation.navigate('movieVideo',item)
   }
 }
 

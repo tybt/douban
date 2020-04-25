@@ -6,7 +6,7 @@ import {createAppContainer} from "react-navigation";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import login from "./pages/login/login";
-import collections from "./containers/CollectionsContainer";
+import collections from "./pages/collections/collections";
 import main from "./pages/main/mian";
 import group from "./pages/group/group";
 import market from "./pages/market/market";
@@ -14,7 +14,7 @@ import mine from "./pages/mine/mine";
 import momentDetail from "./pages/main/momentDetail";
 import writeMoment from "./pages/main/writeMoment";
 import Search from './pages/main/search';
-import DoubanRank from './containers/CollectionsContainer'
+import DoubanRank from './pages/collections/DoubanRank'
 import ClassifyFindMovies from './pages/collections/classifyFindMovies'
 import FindMovies from './pages/collections/findMovies'
 import movieIndex from './pages/movie/movieIndex'
@@ -107,7 +107,7 @@ const AppStack = createStackNavigator({
       title:"视频",
       headerStyle:{
         paddingTop:20,
-        backgroundColor: '#9e9d98',
+        backgroundColor: '#000000',
       },
       headerTitleStyle: {
         color:'#ffffff',

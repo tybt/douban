@@ -1,10 +1,14 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as collectionsAction from '../../actions/collectionsAction';
+
 import {StyleSheet,View,Text,SafeAreaView,Image,ScrollView} from "react-native";
 import {TabView, TabBar} from "react-native-tab-view";
 import SearchBar from '../component/searchBar'
 import Tab_1 from './collectionsTab/Tab_1'
 
-export default class collection extends React.Component {
+class collection extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -80,6 +84,23 @@ export default class collection extends React.Component {
     this.props.navigation.navigate("login");
   }
 }
+
+const mapStateToProps = (state) => {
+  const { collectionsReducer } = state;
+  return {
+    collectionsReducer
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const collectionsActions = bindActionCreators(collectionsAction, dispatch);
+  return {
+    collectionsActions
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(collection);
+
 
 
 
