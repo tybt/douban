@@ -3,7 +3,6 @@
 const host='https://douban.uieee.com'
 const baesHost='http://172.20.10.3:8000'
 
-const apikey='0b2bdeda43b5688921839c8ecb20399b'
 export default {
   
   chartsList:`GET /api/charts`,
@@ -14,7 +13,7 @@ export default {
 
   getDoubanTop:`GET ${host}/v2/movie/top250`,//Top250
   
-  in_theaters:`GET ${host}/v2/movie/in_theaters`,//正在上映
+  in_theaters:`GET ${host}/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b`,//正在上映
 
   movieDetail:`PUT ${host}/v2/movie/subject/`,//电影条目
 }

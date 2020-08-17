@@ -19,6 +19,21 @@ function* watchRequestMovieData(){
   })
 }
 
+function* watchHotMovieData(){
+  yield takeEvery(action.FetchHotMovie,function* (actions){
+    try{
+      const data= yield call(api.in_theaters)
+      console.log(data,'data')
+      yield put(action.getHotMovie(data));
+      
+    } catch ( error ){
+      console.log(error,'error')
+      //yield put( receiveArticleList( [],  ) );
+  
+    }
+  })
+}
+
 export default{
-  watchRequestMovieData
+  watchRequestMovieData,watchHotMovieData
 }

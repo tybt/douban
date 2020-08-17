@@ -20,6 +20,10 @@ class MovieIndex extends React.Component {
     this.height = Header.HEIGHT
     this.props.movieIndexActions.requestMovieDetail(this.props.navigation.state.params.id)
   }
+  componentWillUnmount(){
+    console.log(this.props.movieIndexActions);
+    this.props.movieIndexActions.reset()
+  }
   render() {
     const { movieDetail } = this.props.movieIndexReducer
     return (

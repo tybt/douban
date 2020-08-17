@@ -1,7 +1,9 @@
 
+export const Reset ='Reset'
 
 export const FETCHMOVIEDETAIL='FETCHMOVIEDETAIL';  //请求电影详细信息
 export const SUCCESSMOVIEDETAIL='SUCCESSMOVIEDETAIL';  //请求电影详细信息
+
 export function requestMovieDetail(id) {
   return {
     type: FETCHMOVIEDETAIL,
@@ -15,5 +17,12 @@ export function successMovieDetail(data) {
     data
   };
 }
+
+export function reset() {
+  return {
+    type: Reset,
+  };
+}
+
 
 

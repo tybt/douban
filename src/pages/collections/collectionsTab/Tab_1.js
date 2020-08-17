@@ -14,11 +14,11 @@ export default class Tab_1 extends React.Component {
     };  
   }
   componentDidMount(){
-    this.props.collectionsActions.requestMovieData();
+    
 
   }
   render() {
-    const {movieData,top250Total}=this.props.collectionsReducer
+    const {movieData,top250Total,hotMovie}=this.props.collectionsReducer
     return (
     <View style={{flex:1}}>
       <ScrollView style={{flex:1}}>
@@ -47,18 +47,27 @@ export default class Tab_1 extends React.Component {
           onPress={()=>this.setActive()}>即将上映</Text>
         </View>
         <View style={styles.listBox}>
-          <TouchableOpacity style={styles.listBrand} onPress={()=>this.goMovieDetail()}>
-            <Image style={styles.movieImg} source={require('../../../static/timg.jpg')}></Image>
-            <Text style={styles.movieTitle}>冰雪奇缘</Text>
-            <View style={styles.starBox}>
-              <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
-              <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
-              <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
-              <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
-              <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
-              <Text style={styles.moviePoint}>5.5</Text>
-            </View>
-          </TouchableOpacity>
+          {
+            hotMovie.map(elem=>{
+              return(
+                <TouchableOpacity style={styles.listBrand} onPress={()=>this.goMovieDetail(elem.id)}>
+                  <Image style={styles.movieImg} source={{uri:elem.images.small}}></Image>
+                  <Text style={styles.movieTitle}>
+                    {elem.title}
+                  </Text>
+                  <View style={styles.starBox}>
+                    <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
+                    <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
+                    <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
+                    <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
+                    <Image style={styles.star} source={require('../../../static/component/star1.png')}></Image>
+                    <Text style={styles.moviePoint}>5.5</Text>
+                  </View>
+                </TouchableOpacity>
+              )
+            })
+          }
+          
           <View style={styles.listBrand}></View>
           <View style={styles.listBrand}></View>
         </View>

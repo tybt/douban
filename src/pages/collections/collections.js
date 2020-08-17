@@ -27,8 +27,8 @@ class collection extends React.Component {
     };
   }
   componentDidMount() {
-    
-
+    this.props.collectionsActions.requestMovieData();
+    this.props.collectionsActions.fetchHotMovie()
   }
   render() {
     return (
